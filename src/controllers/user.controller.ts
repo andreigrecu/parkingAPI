@@ -1,9 +1,11 @@
-import { Controller, Post, Body, Get, Put, Delete,Param, UseGuards, UseFilters, Res} from '@nestjs/common';
+import { Controller, Post, Body, Get, Res} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User } from '../models/user.model';
 import { UserService } from '../services/user.service';
 import { UserDto } from '../dtos/user.dto';
+import { ResponseFactory } from '../factories/ResponseFactory';
+import { Response } from 'express';
 
 @Controller('users')
 export class UserController {
@@ -11,13 +13,15 @@ export class UserController {
     constructor(
         @InjectModel('User')
         private readonly userModel: Model<User>,
-        private readonly userService: UserService
+        private readonly userService: UserService,
+        private readonly responseFactory: ResponseFactory
     ) { }
 
     @Post()
     async create(
         @Body() userDto: UserDto,
-    ): Promise<User> {
+        @Res() response: Response
+    ): Promise<any> {
 
         const user = await this.userService.create(
             new Date(),
@@ -25,15 +29,15 @@ export class UserController {
             userDto.name,
             userDto.email
         )
-        return user;
+        return this.responseFactory.ok(user, response);
     }
 
     @Get()
     async get(
-    ): Promise<User[]> {
+        @Res() response: Response
+    ): Promise<any> {
         const users = await this.userModel.find();
-
-        return users;
+        return this.responseFactory.ok(users, response);
     }
 
 }
