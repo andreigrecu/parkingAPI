@@ -22,4 +22,4 @@ import { ResponseFactory } from '../factories/ResponseFactory';
       UserController
     ]
 })
-export class CustomerModule {}
+export class UserModule {}

@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
-import { CustomerModule } from './modules/user.module';
+import { UserModule } from './modules/user.module';
 import { MongooseModule } from '@nestjs/mongoose';
 
 @Module({
   imports: [
-    CustomerModule,
+    UserModule,
     MongooseModule.forRoot('mongodb://127.0.0.1:27017/project'),
   ],
   controllers: [],
