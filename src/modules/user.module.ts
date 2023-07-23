@@ -4,6 +4,7 @@ import { UserSchema } from "../models/user.model";
 import { UserController } from "../controllers/user.controller";
 import { UserService } from "../services/user.service";
 import { ResponseFactory } from '../factories/ResponseFactory';
+import { PasswordService } from '../services/password.service';
 
 @Module({
     imports:[
@@ -16,7 +17,8 @@ import { ResponseFactory } from '../factories/ResponseFactory';
     exports: [],
     providers: [
         UserService,
-        ResponseFactory    
+        ResponseFactory,
+        PasswordService    
     ],
     controllers: [
       UserController
